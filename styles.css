@@ -113,11 +113,10 @@ body {
   width: 100vw;
   height: 100vh;
   position: fixed; /* Stay in place */
-  display: none;
 }
 
 .modal {
-  display: none; /* Hidden by default */
+  display: flex; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 0;
