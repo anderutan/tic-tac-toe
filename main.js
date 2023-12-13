@@ -57,6 +57,7 @@ const addEventListenerToGameBoard = (data) => {
 
 const initializeGame = (data) => {
   // initialize game variables
+  adjustDom('displayTurn', `${data.player1Name} 's Turn`);
   initializeVariables(data);
 
   //add event listener to the gameboard
@@ -79,12 +80,15 @@ const playMove = (box, data) => {
   box.classList.add(data.currentPlayer === 'X' ? 'player1' : 'player2');
   //increase the round #
   data.round++;
-  console.log(box, data);
 
   //check end condition
   if (endConditions(data)) {
-    //adjust dom to reflex endconditions
+    return true;
   }
+
+  //change current player
+  //change the dom, and change data.currentplayer
+  changePlayer(data);
 };
 
 const endConditions = (data) => {
@@ -94,9 +98,14 @@ const endConditions = (data) => {
   //game not over yet
   if (checkWinner(data)) {
     //adjust the dom to reflect win
+    let winnerName =
+      data.currentPlayer === 'X' ? data.player1Name : data.player2Name;
+    adjustDom('displayTurn', winnerName + ' has won the game!');
     return true;
   } else if (data.round === 9) {
     //adjust the dom to reflect tie
+    adjustDom('displayTurn', "It's a tie!");
+    data.gameOver = true;
     return true;
   } else {
     return false;
@@ -115,4 +124,17 @@ const checkWinner = (data) => {
     }
   });
   return result;
+};
+
+const adjustDom = (className, textContent) => {
+  const elem = document.querySelector(`.${className}`);
+  elem.textContent = textContent;
+};
+
+const changePlayer = (data) => {
+  data.currentPlayer = data.currentPlayer === 'X' ? 'O' : 'X';
+  //adjust the dom
+  let displayTurnText =
+    data.currentPlayer === 'X' ? data.player1Name : data.player2Name;
+  adjustDom('displayTurn', `${displayTurnText} 's Turn`);
 };
