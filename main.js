@@ -14,6 +14,17 @@
 
 // human vs human, next implement easy ai, next impossible ai
 
+const winningConditions = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+];
+
 const form = document.querySelector('#myForm');
 
 form.addEventListener('submit', (event) => {
@@ -71,4 +82,9 @@ const playMove = (box, data) => {
   console.log(box, data);
 
   //check end condition
+  if (endConditions(data)) {
+    //adjust dom to reflex endconditions
+  }
 };
+
+const endConditions = (data) => {};
